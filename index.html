@@ -270,13 +270,14 @@
     <div class="logo-area">
       <div class="logo-text">7<span>-</span>Eleven</div>
       <div class="logo-sub">ร้านสะดวกซื้อ</div>
-      <div class="hr-badge">เมนูส่วนตัว</div>
+      <div class="hr-badge">HR CONNECT</div>
     </div>
   </div>
 
   <div class="card-body">
     <div class="section-title">เข้าสู่ระบบ</div>
-    <div class="section-sub">สำหรับผู้จัดการร้าน · Anirut Sonsri</div>
+    <div class="section-sub">สำหรับผู้จัดการร้าน · Store Manager</div>
+
     <div class="field">
       <label for="password">รหัสผ่าน</label>
       <div class="input-wrap">
@@ -306,12 +307,12 @@
   </div>
 
   <div class="footer">
-    <span>7-Eleven Thailand</span> · ระบบสำหรับข้อมูลเอกสาร ผจก.เท่านั่น 095-8904540
+    <span>7-Eleven Thailand</span> · ระบบบริหารทรัพยากรบุคคล · HR Connect &copy; 2025
   </div>
 </div>
 
 <script>
-  var CORRECT_PASSWORD ='7854632';
+  var PASSWORDS = ['7854632', '061139','170806',];
   var TARGET_URL = 'https://sites.google.com/view/anirut06/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81';
 
   function doLogin() {
@@ -320,7 +321,7 @@
     var fallback = document.getElementById('fallback');
     var fallbackLink = document.getElementById('fallback-link');
 
-    if (pw === CORRECT_PASSWORD) {
+    if (PASSWORDS.indexOf(pw) !== -1) {
       err.style.display = 'none';
       fallbackLink.href = TARGET_URL;
 
