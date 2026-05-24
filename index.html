@@ -1,1 +1,367 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Connect – เซเว่น อีเลฟเว่น</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Kanit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        #00833d 0px, #00833d 30px,
+        #ffffff 30px, #ffffff 60px,
+        #e60012 60px, #e60012 90px,
+        #ffffff 90px, #ffffff 120px
+      );
+    opacity: 0.07;
+    z-index: 0;
+  }
+
+  .page-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #00400a 0%, #006e20 40%, #e60012 100%);
+    z-index: -1;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    width: 420px;
+    max-width: 95vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    background: #e60012;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-stripe {
+    width: 100%;
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      #00833d 0px, #00833d 33.3%,
+      #e60012 33.3%, #e60012 66.6%,
+      #ff6d00 66.6%, #ff6d00 100%
+    );
+  }
+
+  .logo-area {
+    background: #e60012;
+    width: 100%;
+    padding: 28px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-text {
+    font-family: 'Kanit', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+  }
+
+  .logo-text span { color: #ff6d00; }
+
+  .logo-sub {
+    background: #00833d;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 16px;
+    border-radius: 20px;
+  }
+
+  .hr-badge {
+    background: #fff;
+    color: #e60012;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+
+  .card-body { padding: 32px 36px 36px; }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 28px;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 7px;
+  }
+
+  .input-wrap { position: relative; }
+
+  .input-wrap .icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #aaa;
+    pointer-events: none;
+  }
+
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0 14px 0 42px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    color: #222;
+    background: #fafafa;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+
+  input[type="password"]:focus,
+  input[type="text"]:focus {
+    border-color: #00833d;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,131,61,0.12);
+  }
+
+  .toggle-pw {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .toggle-pw:hover { color: #555; }
+
+  .btn-login {
+    width: 100%;
+    height: 52px;
+    background: #e60012;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(230,0,18,0.3);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-login:hover {
+    background: #c0000f;
+    box-shadow: 0 6px 18px rgba(230,0,18,0.4);
+  }
+
+  .btn-login:active { transform: scale(0.98); }
+
+  .error-msg {
+    display: none;
+    background: #fff0f0;
+    border: 1px solid #ffc0c0;
+    border-radius: 8px;
+    color: #c00;
+    font-size: 13px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  .link-fallback {
+    display: none;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .link-fallback a {
+    color: #00833d;
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  .footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 14px 36px;
+    text-align: center;
+    font-size: 11.5px;
+    color: #bbb;
+  }
+
+  .footer span { color: #00833d; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="header-stripe"></div>
+    <div class="logo-area">
+      <div class="logo-text">7<span>-</span>Eleven</div>
+      <div class="logo-sub">ร้านสะดวกซื้อ</div>
+      <div class="hr-badge">เมนูส่วนตัว</div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="section-title">เข้าสู่ระบบ</div>
+    <div class="section-sub">สำหรับผู้จัดการร้าน · Anirut Sonsri</div>
+    <div class="field">
+      <label for="password">รหัสผ่าน</label>
+      <div class="input-wrap">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <input type="password" id="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
+        <button class="toggle-pw" type="button" onclick="togglePw()" title="แสดง/ซ่อนรหัสผ่าน">
+          <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-login" id="btnLogin" onclick="doLogin()">เข้าสู่ระบบ</button>
+
+    <div class="error-msg" id="err">
+      รหัสผ่านไม่ถูกต้อง กรุณาลองอีกครั้ง
+    </div>
+
+    <div class="link-fallback" id="fallback">
+      หากหน้าไม่เปิดอัตโนมัติ <a id="fallback-link" href="#" target="_blank" rel="noopener noreferrer">คลิกที่นี่เพื่อเข้าสู่ระบบ</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>7-Eleven Thailand</span> · ระบบสำหรับข้อมูลเอกสาร ผจก.เท่านั่น 095-8904540
+  </div>
+</div>
+
+<script>
+  var CORRECT_PASSWORD ='7854632';
+  var TARGET_URL = 'https://sites.google.com/view/anirut06/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81';
+
+  function doLogin() {
+    var pw = document.getElementById('password').value;
+    var err = document.getElementById('err');
+    var fallback = document.getElementById('fallback');
+    var fallbackLink = document.getElementById('fallback-link');
+
+    if (pw === CORRECT_PASSWORD) {
+      err.style.display = 'none';
+      fallbackLink.href = TARGET_URL;
+
+      // Try multiple redirect methods
+      try {
+        var win = window.open(TARGET_URL, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+          // Popup blocked — show fallback link
+          fallback.style.display = 'block';
+        }
+      } catch(e) {
+        fallback.style.display = 'block';
+      }
+
+      // Also try location redirect as backup
+      setTimeout(function() {
+        window.location.href = TARGET_URL;
+      }, 300);
+
+    } else {
+      err.style.display = 'block';
+      fallback.style.display = 'none';
+      document.getElementById('password').focus();
+    }
+  }
+
+  function togglePw() {
+    var inp = document.getElementById('password');
+    var icon = document.getElementById('eye-icon');
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    } else {
+      inp.type = 'password';
+      icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+  }
+
+  document.getElementById('password').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+</script>
+</body>
+</html>
